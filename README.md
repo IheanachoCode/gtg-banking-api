@@ -219,7 +219,7 @@ This project is a version of personal project.
 
 **Iheanacho Chibuike**
 - Email: philipchibuike1@gmail.com
-- LinkedIn: [Your LinkedIn Profile]
+- LinkedIn: https://www.linkedin.com/in/philip-iheanacho-081589375/
 - GitHub: https://github.com/IheanachoCode
 
 ## 🔍 Code Quality
