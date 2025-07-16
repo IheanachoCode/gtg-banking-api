@@ -203,7 +203,7 @@ DB_PASSWORD=your_password
 
 ## 🤝 Contributing
 
-This is a portfolio project showcasing Laravel REST API development skills. The codebase demonstrates:
+This is a project showcasing Laravel REST API development. The codebase demonstrates:
 
 - **Clean Architecture** - Separation of concerns
 - **Service Layer Pattern** - Business logic separation
@@ -213,14 +213,14 @@ This is a portfolio project showcasing Laravel REST API development skills. The 
 
 ## 📄 License
 
-This project is created for portfolio purposes and job applications.
+This project is a version of personal project.
 
 ## 👨‍💻 Developer
 
 **Iheanacho Chibuike**
 - Email: philipchibuike1@gmail.com
 - LinkedIn: [Your LinkedIn Profile]
-- GitHub: [Your GitHub Profile]
+- GitHub: https://github.com/IheanachoCode
 
 ## 🔍 Code Quality
 
