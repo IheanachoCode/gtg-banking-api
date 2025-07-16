@@ -1,0 +1,2087 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "GTG API Documentation",
+        "description": "API Documentation for GTG Application",
+        "contact": {
+            "name": "GTG Support",
+            "email": "support@gtg.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/fetch-accounts": {
+            "post": {
+                "tags": [
+                    "Fetch Accounts"
+                ],
+                "summary": "Get all accounts for a user",
+                "description": "Retrieves all account numbers associated with the given user ID",
+                "operationId": "getAllAccounts",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "userID"
+                                ],
+                                "properties": {
+                                    "userID": {
+                                        "type": "string",
+                                        "example": "Testi12059528"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Accounts retrieved successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "accounts": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "account_no": {
+                                                                "type": "string",
+                                                                "example": "1234567890"
+                                                            },
+                                                            "account_type": {
+                                                                "type": "string",
+                                                                "example": "savings"
+                                                            },
+                                                            "account_status": {
+                                                                "type": "string",
+                                                                "example": "active"
+                                                            },
+                                                            "opening_date": {
+                                                                "type": "string",
+                                                                "format": "date-time"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The userID field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occurred while fetching accounts"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "X-API-Key": []
+                    },
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/fetch-account-name": {
+            "post": {
+                "tags": [
+                    "Get Account Name"
+                ],
+                "summary": "Get user's full name by userID",
+                "description": "Retrieves the user's full name based on their userID",
+                "operationId": "getAccountName",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "userID"
+                                ],
+                                "properties": {
+                                    "userID": {
+                                        "description": "User ID to lookup",
+                                        "type": "string",
+                                        "example": "Webst446399507"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Account name retrieved successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "full_name": {
+                                                    "type": "string",
+                                                    "example": "John Smith Doe"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The userID field is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "X-API-Key": []
+                    },
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/account/balance": {
+            "post": {
+                "tags": [
+                    "Account Balance"
+                ],
+                "summary": "Get account balance",
+                "description": "Retrieves the current balance and transaction totals for an account",
+                "operationId": "getAccountBalance",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "AccountNo"
+                                ],
+                                "properties": {
+                                    "AccountNo": {
+                                        "type": "string",
+                                        "example": "1234567890"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Request successfully completed"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "balance": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": "-200"
+                                                },
+                                                "credit_total": {
+                                                    "type": "string",
+                                                    "example": "138000.0000000000"
+                                                },
+                                                "debit_total": {
+                                                    "type": "string",
+                                                    "example": "138200.0000000000"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "response_time": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 1949.21
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Account number is required"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "X-API-Key": []
+                    },
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/account/name": {
+            "get": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Get account holder name by account number",
+                "operationId": "1d0e74b13bc81f177c7f87e38e0feeee",
+                "parameters": [
+                    {
+                        "name": "account_no",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Account not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/account/type": {
+            "post": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Fetch account type",
+                "operationId": "73948a857516b5bbda41b6db051e32c7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FetchAccountTypeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/v1/account/status": {
+            "post": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Fetch account status by account number",
+                "operationId": "0098333ee196a3285c4a14b8ead58918",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FetchAccountStatusRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/v1/account/number": {
+            "post": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Get account number by user credentials",
+                "operationId": "4a84732bde9faac7a6de36dfb2321dbb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FetchAccountNumberRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/v1/passport/upload": {
+            "post": {
+                "tags": [
+                    "Passport"
+                ],
+                "summary": "Upload user passport",
+                "operationId": "cf204e764e8c4a260181c7a67fef835d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UploadPassportRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/v1/pin/validate": {
+            "post": {
+                "tags": [
+                    "PIN"
+                ],
+                "summary": "Validate user PIN",
+                "operationId": "f53ecb7807423dbe8693a89d5e41a5d1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "userID": {
+                                        "type": "string"
+                                    },
+                                    "Pin_no": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/v1/pin/change": {
+            "post": {
+                "tags": [
+                    "PIN"
+                ],
+                "summary": "Change user PIN",
+                "operationId": "2f24f2cff955fa55f51e9b5f2fffe2df",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChangePinRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/v1/staff/login": {
+            "post": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Staff login",
+                "operationId": "f7bbecf7c7bb156a19242fc5f13e4fca",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StaffLoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/v1/staff/daily-transactions": {
+            "get": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Get staff daily transactions",
+                "operationId": "51026d7837b0cd728a4c66034f96f351",
+                "parameters": [
+                    {
+                        "name": "staffID",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "transDate",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "No transactions found"
+                    }
+                }
+            }
+        },
+        "/api/v1/staff/daily-deposits": {
+            "get": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Get staff daily deposits total",
+                "operationId": "b193a39379c2f85fa806d24fec31eefc",
+                "parameters": [
+                    {
+                        "name": "staffID",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "fetchmember_error": {
+                                            "type": "boolean"
+                                        },
+                                        "Fetch_Daily_staff_deposit": {
+                                            "type": "boolean"
+                                        },
+                                        "fetchmessage": {
+                                            "type": "number",
+                                            "format": "float"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/staff/name": {
+            "get": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Get staff name by ID",
+                "operationId": "029b2508fe6bf46b6b39abe3befa474f",
+                "parameters": [
+                    {
+                        "name": "staffID",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "fetchmember_error": {
+                                            "type": "boolean"
+                                        },
+                                        "fetchmember_StaffName": {
+                                            "type": "boolean"
+                                        },
+                                        "fetchmessage": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Staff not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/staff/transactions": {
+            "get": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Get staff recent transactions",
+                "operationId": "63bd53566412a81f9bd95a42a5fa92d3",
+                "parameters": [
+                    {
+                        "name": "staffID",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "fetchmember_error": {
+                                            "type": "boolean"
+                                        },
+                                        "fetchmember_Recent_Staff_Transact": {
+                                            "type": "boolean"
+                                        },
+                                        "fetchmessage": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/staff/daily-withdrawals": {
+            "get": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Get staff daily withdrawals total",
+                "operationId": "f45a17e9d941283126c28a65f7878004",
+                "parameters": [
+                    {
+                        "name": "staffID",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "fetchmember_error": {
+                                            "type": "boolean"
+                                        },
+                                        "Fetch_Daily_staff_withdrawal": {
+                                            "type": "boolean"
+                                        },
+                                        "fetchmessage": {
+                                            "type": "number",
+                                            "format": "float"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/staff/overage": {
+            "get": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Get staff overage total",
+                "operationId": "ae5c4753fd4be11e4b195eb676bb70b8",
+                "parameters": [
+                    {
+                        "name": "staffID",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "fetchmember_error": {
+                                            "type": "boolean"
+                                        },
+                                        "fetch_overage": {
+                                            "type": "boolean"
+                                        },
+                                        "fetchmessage": {
+                                            "type": "number",
+                                            "format": "float"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/staff/shortage": {
+            "get": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Get staff shortage total",
+                "operationId": "9b77d6bfe4bc47f9801528bb2b93682d",
+                "parameters": [
+                    {
+                        "name": "staffID",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "fetchmember_error": {
+                                            "type": "boolean"
+                                        },
+                                        "fetch_shortage": {
+                                            "type": "boolean"
+                                        },
+                                        "fetchmessage": {
+                                            "type": "number",
+                                            "format": "float"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/staff/aggregate": {
+            "get": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Get staff aggregate balance",
+                "operationId": "4a376a2ecc6f81f8b57a91e7c4fff56c",
+                "parameters": [
+                    {
+                        "name": "staffID",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "fetchmember_error": {
+                                            "type": "boolean"
+                                        },
+                                        "fetch_aggregate": {
+                                            "type": "boolean"
+                                        },
+                                        "fetchmessage": {
+                                            "type": "number",
+                                            "format": "float"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/staff/transactions/unverified": {
+            "get": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Get staff unverified transactions",
+                "operationId": "efb59bdb13819735a7ab5ad09cf1f5ea",
+                "parameters": [
+                    {
+                        "name": "staffID",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "fetchmember_error": {
+                                            "type": "boolean"
+                                        },
+                                        "fetchmember__Staff_Transact_UnVeried_Status": {
+                                            "type": "boolean"
+                                        },
+                                        "fetchmessage": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/staff/transactions/verified": {
+            "get": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Get staff verified transactions",
+                "operationId": "6518a26f635bf8847bc0c2ba04abfd71",
+                "parameters": [
+                    {
+                        "name": "staffID",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Select_Date",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "staff_id": {
+                                            "type": "string"
+                                        },
+                                        "date": {
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "total_verified": {
+                                            "type": "integer"
+                                        },
+                                        "verified_transactions": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No verified transactions found"
+                    }
+                }
+            }
+        },
+        "/api/v1/staff/pin/validate": {
+            "post": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Validate staff PIN",
+                "operationId": "138a32ce286c041122e57e42257f8293",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "staffID": {
+                                        "type": "string"
+                                    },
+                                    "Pin_no": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/staff/login": {
+            "post": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Staff login",
+                "operationId": "cf247b7069d6afb49f0b7a5b21790e66",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "staffID",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "staffID": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/v1/staff/request": {
+            "post": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Create staff request",
+                "operationId": "d344503285443346009e9b8dfc134086",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "request_name",
+                                    "amount",
+                                    "description",
+                                    "staffID"
+                                ],
+                                "properties": {
+                                    "request_name": {
+                                        "type": "string"
+                                    },
+                                    "amount": {
+                                        "type": "number"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "staffID": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/v1/transfers/history": {
+            "post": {
+                "tags": [
+                    "Transactions History"
+                ],
+                "summary": "Get user's transfer history",
+                "operationId": "getUserTransfers",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "userID"
+                                ],
+                                "properties": {
+                                    "userID": {
+                                        "type": "string",
+                                        "example": "USER123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Request successfully completed"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "transfers": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/TransferResource"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error"
+                    }
+                },
+                "security": [
+                    {
+                        "X-API-Key": []
+                    },
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/transactions/recent": {
+            "get": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Get user's recent transactions",
+                "operationId": "d0155afde071fcd5716e6954c3fd2e5a",
+                "parameters": [
+                    {
+                        "name": "userID",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "account_no",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "fetchmember_error": {
+                                            "type": "boolean"
+                                        },
+                                        "Fetch_User_Recent_Transact": {
+                                            "type": "boolean"
+                                        },
+                                        "fetchmessage": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/transactions/range": {
+            "get": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Get transactions by date range",
+                "operationId": "bbd433a6246b1d7a013a41751e505576",
+                "parameters": [
+                    {
+                        "name": "account_no",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "from",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    },
+                    {
+                        "name": "to",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "fetchmember_error": {
+                                            "type": "boolean"
+                                        },
+                                        "Fetch_User_Recent_Transact": {
+                                            "type": "boolean"
+                                        },
+                                        "fetchmessage": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No transactions found"
+                    }
+                }
+            }
+        },
+        "/api/v1/transactions/daily": {
+            "get": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Get today's transactions",
+                "operationId": "9ca6e4e72c70db3b0d1cf63776f469e3",
+                "parameters": [
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "fetchmember_error": {
+                                            "type": "boolean"
+                                        },
+                                        "Fetch_todays_Transact": {
+                                            "type": "boolean"
+                                        },
+                                        "fetchmessage": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/transactions/dates": {
+            "post": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Fetch transaction dates by account number",
+                "operationId": "ca8d3b73519ed8fba6947fb7c3105f6c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FetchTransactionDatesRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/v1/transactions/dates/limited": {
+            "post": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Fetch limited transaction dates by account number",
+                "operationId": "d17278cccd5de6901386167b865bfc93",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FetchLimitedDatesRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "FetchAccountTypeRequest": {
+                "required": [
+                    "account_no"
+                ],
+                "properties": {
+                    "account_no": {
+                        "type": "string",
+                        "example": "1000000001"
+                    }
+                },
+                "type": "object"
+            },
+            "FetchAccountStatusRequest": {
+                "required": [
+                    "account_no"
+                ],
+                "properties": {
+                    "account_no": {
+                        "type": "string",
+                        "example": "1000000001"
+                    }
+                },
+                "type": "object"
+            },
+            "FetchAccountNumberRequest": {
+                "required": [
+                    "user_id",
+                    "password"
+                ],
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "example": "Testi12059528"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "your_password"
+                    }
+                },
+                "type": "object"
+            },
+            "CategorySearchRequest": {
+                "required": [
+                    "category"
+                ],
+                "properties": {
+                    "category": {
+                        "type": "string",
+                        "example": "Electronics"
+                    }
+                },
+                "type": "object"
+            },
+            "DeviceSetupRequest": {
+                "required": [
+                    "user_id",
+                    "device_id",
+                    "device_type"
+                ],
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "example": "user123"
+                    },
+                    "device_id": {
+                        "type": "string",
+                        "example": "device-abc-123"
+                    },
+                    "device_type": {
+                        "type": "string",
+                        "example": "android"
+                    }
+                },
+                "type": "object"
+            },
+            "FetchLgaRequest": {
+                "required": [
+                    "state"
+                ],
+                "properties": {
+                    "state": {
+                        "type": "string",
+                        "example": "Lagos"
+                    }
+                },
+                "type": "object"
+            },
+            "GenerateOtpRequest": {
+                "required": [
+                    "phone"
+                ],
+                "properties": {
+                    "phone": {
+                        "type": "string",
+                        "example": "08012345678"
+                    }
+                },
+                "type": "object"
+            },
+            "VerifyOtpRequest": {
+                "required": [
+                    "phone",
+                    "otp"
+                ],
+                "properties": {
+                    "phone": {
+                        "type": "string",
+                        "example": "08012345678"
+                    },
+                    "otp": {
+                        "type": "string",
+                        "example": "123456"
+                    }
+                },
+                "type": "object"
+            },
+            "VerifyOtpCheckRequest": {
+                "required": [
+                    "otp_code"
+                ],
+                "properties": {
+                    "otp_code": {
+                        "type": "string",
+                        "example": "123456"
+                    }
+                },
+                "type": "object"
+            },
+            "UploadPassportRequest": {
+                "required": [
+                    "passport"
+                ],
+                "properties": {
+                    "passport": {
+                        "description": "Passport image file",
+                        "type": "string",
+                        "format": "binary"
+                    }
+                },
+                "type": "object"
+            },
+            "ForgotPasswordRequest": {
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "user@example.com"
+                    }
+                },
+                "type": "object"
+            },
+            "CreateNewPasswordRequest": {
+                "required": [
+                    "email",
+                    "otp_code",
+                    "password",
+                    "password_confirmation"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "user@example.com"
+                    },
+                    "otp_code": {
+                        "type": "string",
+                        "example": "123456"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password",
+                        "example": "newpassword123"
+                    },
+                    "password_confirmation": {
+                        "type": "string",
+                        "format": "password",
+                        "example": "newpassword123"
+                    }
+                },
+                "type": "object"
+            },
+            "PhoneOtpRequest": {
+                "required": [
+                    "phone"
+                ],
+                "properties": {
+                    "phone": {
+                        "type": "string",
+                        "example": "08012345678"
+                    }
+                },
+                "type": "object"
+            },
+            "VerifyPhoneOtpRequest": {
+                "required": [
+                    "phone",
+                    "otp_code"
+                ],
+                "properties": {
+                    "phone": {
+                        "type": "string",
+                        "example": "08012345678"
+                    },
+                    "otp_code": {
+                        "type": "string",
+                        "example": "123456"
+                    }
+                },
+                "type": "object"
+            },
+            "ChangePinRequest": {
+                "required": [
+                    "user_id",
+                    "old_pin",
+                    "new_pin",
+                    "new_pin_confirmation"
+                ],
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "example": "USER123"
+                    },
+                    "old_pin": {
+                        "type": "string",
+                        "example": "1234"
+                    },
+                    "new_pin": {
+                        "type": "string",
+                        "example": "5678"
+                    },
+                    "new_pin_confirmation": {
+                        "type": "string",
+                        "example": "5678"
+                    }
+                },
+                "type": "object"
+            },
+            "RateAccountOfficerRequest": {
+                "required": [
+                    "officer_id",
+                    "user_id",
+                    "rating",
+                    "comment"
+                ],
+                "properties": {
+                    "officer_id": {
+                        "type": "string",
+                        "example": "OFFICER123"
+                    },
+                    "user_id": {
+                        "type": "string",
+                        "example": "USER456"
+                    },
+                    "rating": {
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "comment": {
+                        "type": "string",
+                        "example": "Very helpful and professional."
+                    }
+                },
+                "type": "object"
+            },
+            "StaffLoginRequest": {
+                "required": [
+                    "staffID",
+                    "password"
+                ],
+                "properties": {
+                    "staffID": {
+                        "type": "string",
+                        "example": "STAFF123"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password",
+                        "example": "secret123"
+                    }
+                },
+                "type": "object"
+            },
+            "OpenTicketRequest": {
+                "required": [
+                    "account_no",
+                    "subject",
+                    "message"
+                ],
+                "properties": {
+                    "account_no": {
+                        "type": "string",
+                        "example": "1000000001"
+                    },
+                    "subject": {
+                        "type": "string",
+                        "example": "Unable to login"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "I am unable to login to my account with my credentials."
+                    }
+                },
+                "type": "object"
+            },
+            "FetchTransactionDatesRequest": {
+                "required": [
+                    "account_no"
+                ],
+                "properties": {
+                    "account_no": {
+                        "type": "string",
+                        "example": "1000000001"
+                    }
+                },
+                "type": "object"
+            },
+            "FetchLimitedDatesRequest": {
+                "required": [
+                    "account_no"
+                ],
+                "properties": {
+                    "account_no": {
+                        "type": "string",
+                        "example": "1000000001"
+                    }
+                },
+                "type": "object"
+            },
+            "TransactionCountRequest": {
+                "required": [
+                    "account_no",
+                    "transaction_date"
+                ],
+                "properties": {
+                    "account_no": {
+                        "type": "string",
+                        "example": "1000000001"
+                    },
+                    "transaction_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2024-06-25"
+                    }
+                },
+                "type": "object"
+            },
+            "WithdrawalRequestMobileRequest": {
+                "required": [
+                    "account_no",
+                    "amount",
+                    "pin"
+                ],
+                "properties": {
+                    "account_no": {
+                        "type": "string",
+                        "example": "1000000001"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 5000
+                    },
+                    "pin": {
+                        "type": "string",
+                        "example": "1234"
+                    }
+                },
+                "type": "object"
+            },
+            "AccountResource": {
+                "properties": {
+                    "account_no": {
+                        "type": "string",
+                        "example": "1234567890"
+                    },
+                    "account_name": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "account_type": {
+                        "type": "string",
+                        "example": "savings"
+                    },
+                    "account_status": {
+                        "type": "string",
+                        "example": "active"
+                    }
+                },
+                "type": "object"
+            },
+            "DescoResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "descos": {
+                        "type": "string",
+                        "example": "ENUGU"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "ENUGU DISTRIBUTION COMPANY"
+                    },
+                    "code": {
+                        "type": "string",
+                        "example": "enugu"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "active"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "LoanResource": {
+                "properties": {
+                    "account_number": {
+                        "type": "string",
+                        "example": "1234567890"
+                    },
+                    "date_issued": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-01-01"
+                    },
+                    "client_name": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "123 Main St"
+                    },
+                    "loan_type": {
+                        "type": "string",
+                        "example": "Personal"
+                    },
+                    "processing_fee": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 1000
+                    },
+                    "amount": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 50000
+                    },
+                    "refence_no": {
+                        "type": "string",
+                        "example": "LOAN123"
+                    }
+                },
+                "type": "object"
+            },
+            "MeterTypeResource": {
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "example": "Prepaid"
+                    }
+                },
+                "type": "object"
+            },
+            "OrderResource": {
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "example": "ORD123"
+                    },
+                    "item_id": {
+                        "type": "string",
+                        "example": "ITM123"
+                    },
+                    "item_name": {
+                        "type": "string",
+                        "example": "Product Name"
+                    },
+                    "quantity": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "unit_price": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 1000
+                    },
+                    "amount_paid": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 1500
+                    },
+                    "amount_expected": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 2000
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "Pending"
+                    },
+                    "delivery": {
+                        "type": "string",
+                        "example": "Processing"
+                    }
+                },
+                "type": "object"
+            },
+            "ProductResource": {
+                "properties": {
+                    "item": {
+                        "type": "string",
+                        "example": "Product Name"
+                    },
+                    "item_code": {
+                        "type": "string",
+                        "example": "PRD001"
+                    },
+                    "purchased_price": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 1000
+                    },
+                    "selling_price": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 1500
+                    }
+                },
+                "type": "object"
+            },
+            "TransferResource": {
+                "properties": {
+                    "account_no": {
+                        "type": "string",
+                        "example": "1234567890"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 1000
+                    },
+                    "transaction_type": {
+                        "type": "string",
+                        "example": "Credit"
+                    },
+                    "transaction_id": {
+                        "type": "string",
+                        "example": "TXN123"
+                    },
+                    "transaction_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-06-11"
+                    }
+                },
+                "type": "object"
+            },
+            "VendorResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "MTN"
+                    },
+                    "code": {
+                        "type": "string",
+                        "example": "mtn"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "active"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "VendorTVResource": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "DSTV"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "X-API-Key": {
+                "type": "apiKey",
+                "name": "X-API-Key",
+                "in": "header"
+            },
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Fetch Accounts",
+            "description": "Fetch Accounts"
+        },
+        {
+            "name": "Get Account Name",
+            "description": "Get Account Name"
+        },
+        {
+            "name": "Account Balance",
+            "description": "Account Balance"
+        },
+        {
+            "name": "Account",
+            "description": "Account"
+        },
+        {
+            "name": "Passport",
+            "description": "Passport"
+        },
+        {
+            "name": "PIN",
+            "description": "PIN"
+        },
+        {
+            "name": "Staff",
+            "description": "Staff"
+        },
+        {
+            "name": "Transactions History",
+            "description": "Transactions History"
+        },
+        {
+            "name": "Transactions",
+            "description": "Transactions"
+        }
+    ]
+}
