@@ -21,3 +21,20 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# Additional security and cleanup
+*.log
+*.cache
+*.tmp
+/storage/logs/*.log
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/app/public/*
+/database/database.sqlite
+/database/*.sqlite
+_ide_helper.php
+.phpunit.result.cache
+api.json
+*.backup
+create_personal_access_tokens.sql
