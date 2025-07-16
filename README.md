@@ -218,7 +218,7 @@ This project is a version of personal project.
 ## 👨‍💻 Developer
 
 **Iheanacho Chibuike**
-- Email: philipchibuike1@gmail.com
+- Email: iheanachochukwubuikem@gmail.com
 - LinkedIn: https://www.linkedin.com/in/philip-iheanacho-081589375/
 - GitHub: https://github.com/IheanachoCode
 
